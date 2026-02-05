@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - E-Commerce</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav>
+        <h1>🛒 E-Commerce - Admin</h1>
+        <div>
+            <span style="margin-right: 1rem;">Bienvenido, @ViewBag.NombreUsuario</span>
+            <a href="/Product/Index">Productos</a>
+            <a href="/User/Index">Usuarios</a>
+            <a href="/Dashboard/Logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 style="margin-bottom: 2rem;">Panel Administrativo</h2>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+            <!-- Tarjeta de Usuarios -->
+            <div class="product-card" style="text-align: center;">
+                <h3>👥 Usuarios</h3>
+                <p style="font-size: 2rem; color: #007bff; font-weight: bold;">@ViewBag.TotalUsuarios</p>
+                <a href="/User/Index" class="btn btn-primary">Ver Usuarios</a>
+            </div>
+
+            <!-- Tarjeta de Productos -->
+            <div class="product-card" style="text-align: center;">
+                <h3>📦 Productos</h3>
+                <p style="font-size: 2rem; color: #28a745; font-weight: bold;">@ViewBag.TotalProductos</p>
+                <a href="/Product/Index" class="btn btn-success">Ver Productos</a>
+            </div>
+
+            <!-- Tarjeta de Órdenes -->
+            <div class="product-card" style="text-align: center;">
+                <h3>🛍️ Órdenes</h3>
+                <p style="font-size: 2rem; color: #ffc107; font-weight: bold;">@ViewBag.TotalOrdenes</p>
+                <a href="/Order/Index" class="btn btn-primary">Ver Órdenes</a>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 2rem;">Opciones de Administración</h3>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+            <a href="/Product/Create" class="btn btn-success" style="padding: 1rem; text-align: center;">➕ Crear Nuevo Producto</a>
+            <a href="/User/Create" class="btn btn-success" style="padding: 1rem; text-align: center;">➕ Crear Nuevo Usuario</a>
+            <a href="/Product/Index" class="btn btn-primary" style="padding: 1rem; text-align: center;">📋 Gestionar Productos</a>
+            <a href="/User/Index" class="btn btn-primary" style="padding: 1rem; text-align: center;">📋 Gestionar Usuarios</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - E-Commerce</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav>
+        <h1>🛒 E-Commerce</h1>
+        <div>
+            <a href="/Home/Index">Inicio</a>
+            <a href="/Account/Login">Iniciar Sesión</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero" style="max-width: 400px; margin: 3rem auto;">
+            <h2>Registrarse</h2>
+            
+            @if (!string.IsNullOrEmpty(ViewBag.Error))
+            {
+                <div class="alert alert-error">@ViewBag.Error</div>
+            }
+
+            @if (!string.IsNullOrEmpty(ViewBag.Success))
+            {
+                <div class="alert alert-success">@ViewBag.Success</div>
+            }
+
+            <form method="POST" action="/Account/Register">
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contraseña">Contraseña:</label>
+                    <input type="password" id="contraseña" name="contraseña" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmar">Confirmar Contraseña:</label>
+                    <input type="password" id="confirmar" name="confirmar" required>
+                </div>
+
+                <button type="submit" class="btn btn-success" style="width: 100%; margin-top: 1rem;">Registrarse</button>
+            </form>
+
+            <p style="text-align: center; margin-top: 1rem;">
+                ¿Ya tienes cuenta? <a href="/Account/Login">Inicia sesión aquí</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

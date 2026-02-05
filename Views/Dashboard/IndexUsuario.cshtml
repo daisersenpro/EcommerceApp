@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Usuario - E-Commerce</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav>
+        <h1>🛒 E-Commerce</h1>
+        <div>
+            <span style="margin-right: 1rem;">Bienvenido, @ViewBag.NombreUsuario</span>
+            <a href="/Product/Index">Tienda</a>
+            <a href="/Dashboard/Logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 style="margin-bottom: 2rem;">Mi Dashboard</h2>
+
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+            <!-- Tarjeta de Órdenes -->
+            <div class="product-card" style="text-align: center;">
+                <h3>🛍️ Mis Órdenes</h3>
+                <p style="font-size: 2rem; color: #007bff; font-weight: bold;">@ViewBag.Ordenes?.Count ?? 0</p>
+                <a href="/Order/MyOrders" class="btn btn-primary">Ver Órdenes</a>
+            </div>
+
+            <!-- Tarjeta de Tienda -->
+            <div class="product-card" style="text-align: center;">
+                <h3>🏪 Tienda</h3>
+                <p style="color: #666;">Explora nuestros productos</p>
+                <a href="/Product/Index" class="btn btn-success">Ir a la Tienda</a>
+            </div>
+        </div>
+
+        <h3>Mis Órdenes Recientes</h3>
+        
+        @if (ViewBag.Ordenes?.Count > 0)
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Orden</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var orden in ViewBag.Ordenes)
+                    {
+                        <tr>
+                            <td>#@orden.Id</td>
+                            <td>@orden.FechaOrden.ToString("dd/MM/yyyy")</td>
+                            <td>${@orden.Total.ToString("F2")}</td>
+                            <td><strong>@orden.Estado</strong></td>
+                            <td>
+                                <a href="/Order/Details/@orden.Id" class="btn btn-primary" style="padding: 0.5rem; font-size: 0.9rem;">Ver</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                <p>No tienes órdenes aún. <a href="/Product/Index">¡Comienza a comprar!</a></p>
+            </div>
+        }
+    </div>
+</body>
+</html>

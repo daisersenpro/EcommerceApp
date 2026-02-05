@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - E-Commerce</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav>
+        <h1>🛒 E-Commerce</h1>
+        <div>
+            <a href="/Home/Index">Inicio</a>
+            <a href="/Account/Register">Registrarse</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero" style="max-width: 400px; margin: 3rem auto;">
+            <h2>Iniciar Sesión</h2>
+            
+            @if (!string.IsNullOrEmpty(ViewBag.Error))
+            {
+                <div class="alert alert-error">@ViewBag.Error</div>
+            }
+
+            <form method="POST" action="/Account/Login">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contraseña">Contraseña:</label>
+                    <input type="password" id="contraseña" name="contraseña" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Ingresar</button>
+            </form>
+
+            <p style="text-align: center; margin-top: 1rem;">
+                ¿No tienes cuenta? <a href="/Account/Register">Registrate aquí</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

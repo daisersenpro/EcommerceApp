@@ -1,0 +1,75 @@
+@{
+    var usuarioId = Context.Session.GetString("UsuarioId");
+    var rol = Context.Session.GetString("Rol");
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - E-Commerce</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav>
+        <h1>🛒 E-Commerce</h1>
+        <div>
+            <a href="/Home/Index">Inicio</a>
+            <a href="/Product/Index">Productos</a>
+            @if (!string.IsNullOrEmpty(usuarioId))
+            {
+                <a href="/Dashboard/Index">Dashboard</a>
+                <a href="/Dashboard/Logout">Logout</a>
+            }
+            else
+            {
+                <a href="/Account/Login">Login</a>
+            }
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 style="margin-bottom: 2rem;">Nuestros Productos</h2>
+
+        @if (rol == "Admin")
+        {
+            <a href="/Product/Create" class="btn btn-success" style="margin-bottom: 1rem;">➕ Agregar Nuevo Producto</a>
+        }
+
+        @if (Model?.Count > 0)
+        {
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                @foreach (var producto in Model)
+                {
+                    <div class="product-card">
+                        <h3>@producto.Nombre</h3>
+                        <p>@producto.Descripcion</p>
+                        <p><strong>Categoría:</strong> @producto.Categoria</p>
+                        <p><strong>Stock:</strong> @producto.Stock unidades</p>
+                        <p class="product-price">$@producto.Precio.ToString("F2")</p>
+                        
+                        <div style="margin-top: 1rem;">
+                            <a href="/Product/Details/@producto.Id" class="btn btn-primary">Ver Detalles</a>
+                            
+                            @if (rol == "Admin")
+                            {
+                                <a href="/Product/Edit/@producto.Id" class="btn btn-primary" style="margin-top: 0.5rem;">Editar</a>
+                                <form method="POST" action="/Product/Delete/@producto.Id" style="display: inline;">
+                                    <button type="submit" class="btn btn-danger" style="margin-top: 0.5rem;">Eliminar</button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                <p>No hay productos disponibles.</p>
+            </div>
+        }
+    </div>
+</body>
+</html>
