@@ -1,0 +1,72 @@
+@model List<EcommerceApp.Models.CarritoItem>
+@{
+    ViewData["Title"] = "Finalizar Compra";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="mb-4">📦 Resumen de tu Compra</h2>
+
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Productos en tu orden</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th class="text-center">Cantidad</th>
+                            <th class="text-end">Precio</th>
+                            <th class="text-end">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td><strong>@item.NombreProducto</strong></td>
+                                <td class="text-center">@item.Cantidad</td>
+                                <td class="text-end">$@item.Precio.ToString("F2")</td>
+                                <td class="text-end">$@item.Subtotal.ToString("F2")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <hr>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4>Total a pagar:</h4>
+                    <h3 class="text-success mb-0">$@Model.Sum(c => c.Subtotal).ToString("F2")</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Información de Entrega</h5>
+            </div>
+            <div class="card-body">
+                <p class="mb-2"><strong>Nombre:</strong> @Context.Session.GetString("NombreUsuario")</p>
+                <p class="mb-2"><strong>Método de pago:</strong> Pago contra entrega</p>
+                <p class="mb-0"><strong>Tiempo estimado:</strong> 3-5 días hábiles</p>
+            </div>
+        </div>
+
+        <div class="alert alert-warning">
+            <strong>⚠️ Importante:</strong> Al confirmar tu compra, se generará una orden y se descontará el stock de los productos.
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <a href="/Cart/Index" class="btn btn-secondary btn-lg">
+                ← Volver al Carrito
+            </a>
+            <form method="POST" action="/Cart/CheckoutConfirm" style="display: inline;">
+                <button type="submit" class="btn btn-success btn-lg">
+                    ✓ Confirmar Compra
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

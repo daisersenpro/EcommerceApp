@@ -1,64 +1,63 @@
+@model EcommerceApp.Models.Producto
 @{
+    ViewData["Title"] = Model.Nombre;
     var usuarioId = Context.Session.GetString("UsuarioId");
+    var rol = Context.Session.GetString("Rol");
 }
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@Model.Nombre - E-Commerce</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-    <nav>
-        <h1>🛒 E-Commerce</h1>
-        <div>
-            <a href="/Home/Index">Inicio</a>
-            <a href="/Product/Index">Productos</a>
-            @if (!string.IsNullOrEmpty(usuarioId))
-            {
-                <a href="/Dashboard/Index">Dashboard</a>
-                <a href="/Dashboard/Logout">Logout</a>
-            }
-            else
-            {
-                <a href="/Account/Login">Login</a>
-            }
-        </div>
-    </nav>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3>@Model.Nombre</h3>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <p><strong>Descripción:</strong> @Model.Descripcion</p>
+                </div>
+                <div class="mb-3">
+                    <p><strong>Categoría:</strong> <span class="badge bg-secondary">@Model.Categoria</span></p>
+                </div>
+                <div class="mb-3">
+                    <p><strong>Stock Disponible:</strong> 
+                        <span class="badge @(Model.Stock > 0 ? "bg-success" : "bg-danger")">@Model.Stock unidades</span>
+                    </p>
+                </div>
+                <div class="mb-4">
+                    <h4 class="text-success">Precio: $@Model.Precio.ToString("F2")</h4>
+                </div>
 
-    <div class="container">
-        <div class="hero">
-            <h2>@Model.Nombre</h2>
-            
-            <div style="text-align: left; margin-top: 2rem;">
-                <p><strong>Descripción:</strong> @Model.Descripcion</p>
-                <p><strong>Categoría:</strong> @Model.Categoria</p>
-                <p><strong>Stock Disponible:</strong> @Model.Stock unidades</p>
-                <p class="product-price" style="margin: 1rem 0;">Precio: $@Model.Precio.ToString("F2")</p>
-
-                @if (Model.Stock > 0)
+                @if (Model.Stock > 0 && !string.IsNullOrEmpty(usuarioId) && rol != "Admin")
                 {
-                    <div style="margin-top: 1.5rem;">
-                        <form method="POST" action="/Cart/AddToCart" style="display: inline;">
+                    <div class="mb-3">
+                        <form method="POST" action="/Cart/AddToCart">
                             <input type="hidden" name="productoId" value="@Model.Id">
-                            <div class="form-group">
-                                <label for="cantidad">Cantidad:</label>
-                                <input type="number" id="cantidad" name="cantidad" value="1" min="1" max="@Model.Stock" style="width: 100px;">
+                            <div class="mb-3">
+                                <label for="cantidad" class="form-label">Cantidad:</label>
+                                <input type="number" id="cantidad" name="cantidad" value="1" min="1" max="@Model.Stock" class="form-control" style="width: 150px;">
                             </div>
-                            <button type="submit" class="btn btn-success" style="margin-top: 0.5rem;">🛒 Agregar al Carrito</button>
+                            <button type="submit" class="btn btn-success btn-lg">🛒 Agregar al Carrito</button>
                         </form>
                     </div>
                 }
-                else
+                else if (Model.Stock == 0)
                 {
-                    <p style="color: red; margin-top: 1rem;"><strong>Producto sin stock</strong></p>
+                    <div class="alert alert-danger">
+                        <strong>⚠️ Producto sin stock</strong>
+                    </div>
+                }
+                else if (string.IsNullOrEmpty(usuarioId))
+                {
+                    <div class="alert alert-info">
+                        <strong>ℹ️ Inicia sesión para agregar productos al carrito</strong>
+                        <a href="/Account/Login" class="btn btn-primary btn-sm ms-2">Iniciar Sesión</a>
+                    </div>
                 }
 
-                <a href="/Product/Index" class="btn btn-primary" style="margin-top: 1rem;">Volver a Productos</a>
+                <div class="mt-4">
+                    <a href="/Product/Index" class="btn btn-secondary">← Volver a Productos</a>
+                </div>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>

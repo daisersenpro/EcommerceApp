@@ -1,29 +1,50 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Commerce - Inicio</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-    <nav>
-        <h1>🛒 E-Commerce</h1>
-        <div>
-            <a href="/Home/Index">Inicio</a>
-            <a href="/Account/Login">Login</a>
-            <a href="/Product/Index">Productos</a>
-        </div>
-    </nav>
+@{
+    ViewData["Title"] = "Inicio";
+}
 
-    <div class="container">
-        <div class="hero">
-            <h2>¡Bienvenido a nuestro E-Commerce!</h2>
-            <p>Encuentra los mejores productos a precios increíbles</p>
-            
-            <a href="/Account/Login" class="btn btn-primary">Iniciar Sesión</a>
-            <a href="/Product/Index" class="btn btn-success">Ver Productos</a>
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-body text-center py-5">
+                <h1 class="display-4 mb-4">¡Bienvenido a nuestro E-Commerce!</h1>
+                <p class="lead text-muted mb-4">Encuentra los mejores productos a precios increíbles</p>
+                
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="/Account/Login" class="btn btn-primary btn-lg">
+                        <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+                    </a>
+                    <a href="/Product/Index" class="btn btn-success btn-lg">
+                        <i class="bi bi-shop"></i> Ver Productos
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-</body>
-</html>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h3>📦 Envío Gratis</h3>
+                <p class="text-muted">En compras mayores a $50</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h3>💳 Pago Seguro</h3>
+                <p class="text-muted">Transacciones protegidas</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h3>⭐ Garantía</h3>
+                <p class="text-muted">30 días de devolución</p>
+            </div>
+        </div>
+    </div>
+</div>
